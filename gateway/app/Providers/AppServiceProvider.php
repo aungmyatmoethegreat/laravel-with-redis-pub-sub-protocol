@@ -2,10 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\PodcastProcessed;
 use App\Listeners\SendPodcastNotification;
-use Illuminate\Support\Facades\Event;
+use App\Models\Client;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +22,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Passport::tokensCan(config('openid.passport.tokens_can'));
+        Passport::useClientModel(Client::class);
+
     }
 }
